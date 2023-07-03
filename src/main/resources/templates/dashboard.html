@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>User Dashboard</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">User Dashboard</a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/api/posts/all-posts}">Home</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <h3> Welcome to Facebook </h3>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <a th:href="@{/api/posts/create-post}" class="btn btn-primary btn-sm mb-3"> Create Post</a>
+        </div>
+    </div>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th> Title</th>
+            <th> Content</th>
+            <th> Timestamp</th>
+            <th> Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="post: ${posts}">
+            <td th:text="${post.title}"></td>
+            <td th:text="${post.content}"></td>
+            <td th:text="${post.timestamp}"></td>
+            <td>
+                <a th:href="@{/api/posts/editpost/{id}(id=${post.id})}" class="btn btn-primary">Edit Post</a>
+                <a th:href="@{/api/posts/deletepost/{id}(id=${post.id})}" class="btn btn-danger">Delete Post</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th> Comment</th>
+            <th> Timestamp</th>
+            <th> Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="comment: ${comments}">
+            <td th:text="${comment.content}"></td>
+            <td th:text="${comment.timestamp}"></td>
+            <td>
+                <a th:href="@{/api/comments/create-comment}" class="btn btn-primary">Create Comment</a>
+                <a th:href="@{/api/comments/editcomment/{id}(id=${comment.id})}" class="btn btn-secondary">Edit Comment</a>
+                <a th:href="@{/api/posts/deletecomment/{id}(id=${comment.id})}" class="btn btn-danger">Delete Comment</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+97qljcq0qBq5dz5VszhqE6ZzjWq5EUEO3+2p4MqgxW0n1h"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
